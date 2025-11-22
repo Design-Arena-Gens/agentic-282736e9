@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استوری - کمک به پیرمرد</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .story-container {
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            max-height: 711px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            width: 0%;
+            animation: progress 20s linear forwards;
+        }
+
+        @keyframes progress {
+            to { width: 100%; }
+        }
+
+        .story-content {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #87CEEB 0%, #90EE90 50%, #8B7355 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Sun */
+        .sun {
+            position: absolute;
+            top: 60px;
+            right: 60px;
+            width: 80px;
+            height: 80px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            animation: sunGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes sunGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Mountains background */
+        .mountains {
+            position: absolute;
+            bottom: 250px;
+            left: 0;
+            width: 100%;
+            height: 120px;
+        }
+
+        .mountain {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 80px solid transparent;
+            border-right: 80px solid transparent;
+            border-bottom: 120px solid #8B7355;
+            opacity: 0.3;
+        }
+
+        .mountain:nth-child(1) { left: 20px; }
+        .mountain:nth-child(2) { left: 120px; transform: scale(1.2); }
+        .mountain:nth-child(3) { right: 40px; }
+
+        /* Farm ground */
+        .farm-ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(180deg, #6B8E23 0%, #556B2F 100%);
+        }
+
+        /* Wheat stalks */
+        .wheat-container {
+            position: absolute;
+            bottom: 180px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+        }
+
+        .wheat {
+            position: absolute;
+            bottom: 0;
+            width: 3px;
+            height: 40px;
+            background: #DAA520;
+            animation: sway 2s ease-in-out infinite;
+        }
+
+        .wheat::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -3px;
+            width: 9px;
+            height: 12px;
+            background: #F4A460;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .wheat:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .wheat:nth-child(2) { left: 20%; animation-delay: 0.2s; }
+        .wheat:nth-child(3) { left: 30%; animation-delay: 0.4s; }
+        .wheat:nth-child(4) { left: 40%; animation-delay: 0.1s; }
+        .wheat:nth-child(5) { left: 50%; animation-delay: 0.3s; }
+        .wheat:nth-child(6) { left: 60%; animation-delay: 0.5s; }
+        .wheat:nth-child(7) { left: 70%; animation-delay: 0.2s; }
+        .wheat:nth-child(8) { left: 80%; animation-delay: 0.4s; }
+        .wheat:nth-child(9) { left: 90%; animation-delay: 0.1s; }
+
+        /* Old man character */
+        .old-man {
+            position: absolute;
+            bottom: 100px;
+            left: 80px;
+            animation: oldManBend 3s ease-in-out infinite;
+        }
+
+        @keyframes oldManBend {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-5deg); }
+        }
+
+        .old-man-head {
+            width: 40px;
+            height: 40px;
+            background: #DEB887;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .old-man-hat {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 20px;
+            background: #8B4513;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .old-man-body {
+            width: 50px;
+            height: 70px;
+            background: #A0522D;
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .old-man-arm {
+            position: absolute;
+            width: 8px;
+            height: 50px;
+            background: #DEB887;
+            border-radius: 5px;
+        }
+
+        .old-man-arm.left {
+            top: 10px;
+            right: -5px;
+            transform: rotate(30deg);
+        }
+
+        .old-man-arm.right {
+            top: 10px;
+            left: -5px;
+            transform: rotate(-30deg);
+        }
+
+        .old-man-leg {
+            position: absolute;
+            width: 10px;
+            height: 40px;
+            background: #654321;
+            border-radius: 5px;
+            bottom: -40px;
+        }
+
+        .old-man-leg.left { left: 8px; }
+        .old-man-leg.right { right: 8px; }
+
+        /* Young soldier character */
+        .soldier {
+            position: absolute;
+            bottom: 100px;
+            right: 80px;
+            animation: soldierHelp 3s ease-in-out infinite;
+        }
+
+        @keyframes soldierHelp {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .soldier-head {
+            width: 40px;
+            height: 40px;
+            background: #F4A460;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .soldier-cap {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 20px;
+            background: #2F4F2F;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .soldier-cap::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 50px;
+            height: 8px;
+            background: #2F4F2F;
+            border-radius: 5px;
+        }
+
+        .soldier-body {
+            width: 50px;
+            height: 70px;
+            background: #556B2F;
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .soldier-arm {
+            position: absolute;
+            width: 8px;
+            height: 50px;
+            background: #F4A460;
+            border-radius: 5px;
+        }
+
+        .soldier-arm.left {
+            top: 10px;
+            right: -5px;
+            transform: rotate(45deg);
+            animation: soldierArmMove 3s ease-in-out infinite;
+        }
+
+        @keyframes soldierArmMove {
+            0%, 100% { transform: rotate(45deg); }
+            50% { transform: rotate(35deg); }
+        }
+
+        .soldier-arm.right {
+            top: 10px;
+            left: -5px;
+            transform: rotate(-20deg);
+        }
+
+        .soldier-leg {
+            position: absolute;
+            width: 10px;
+            height: 40px;
+            background: #2F4F2F;
+            border-radius: 5px;
+            bottom: -40px;
+        }
+
+        .soldier-leg.left { left: 8px; }
+        .soldier-leg.right { right: 8px; }
+
+        /* Basket */
+        .basket {
+            position: absolute;
+            bottom: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 40px;
+            border: 4px solid #8B4513;
+            border-radius: 0 0 20px 20px;
+            background: linear-gradient(180deg, transparent 0%, #D2691E 100%);
+            animation: basketFill 3s ease-in-out infinite;
+        }
+
+        @keyframes basketFill {
+            0%, 100% { height: 40px; }
+            50% { height: 45px; }
+        }
+
+        .basket::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 15px;
+            border: 4px solid #8B4513;
+            border-radius: 50px 50px 0 0;
+            background: transparent;
+        }
+
+        /* Text overlay */
+        .story-text {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+            animation: textFade 2s ease-in-out infinite;
+        }
+
+        @keyframes textFade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .story-text h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .story-text p {
+            font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Heart particles */
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: floatHeart 4s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .heart:nth-child(1) {
+            top: 60%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+
+        .heart:nth-child(2) {
+            top: 65%;
+            right: 25%;
+            animation-delay: 1.5s;
+        }
+
+        .heart:nth-child(3) {
+            top: 55%;
+            left: 50%;
+            animation-delay: 3s;
+        }
+
+        @media (max-width: 768px) {
+            .story-container {
+                max-width: 100%;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="story-container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="story-content">
+            <!-- Sun -->
+            <div class="sun"></div>
+
+            <!-- Mountains -->
+            <div class="mountains">
+                <div class="mountain"></div>
+                <div class="mountain"></div>
+                <div class="mountain"></div>
+            </div>
+
+            <!-- Farm ground -->
+            <div class="farm-ground"></div>
+
+            <!-- Wheat stalks -->
+            <div class="wheat-container">
+                <div class="wheat"></div>
+                <div class="wheat"></div>
+                <div class="wheat"></div>
+                <div class="wheat"></div>
+                <div class="wheat"></div>
+                <div class="wheat"></div>
+                <div class="wheat"></div>
+                <div class="wheat"></div>
+                <div class="wheat"></div>
+            </div>
+
+            <!-- Basket -->
+            <div class="basket"></div>
+
+            <!-- Old man -->
+            <div class="old-man">
+                <div class="old-man-head">
+                    <div class="old-man-hat"></div>
+                </div>
+                <div class="old-man-body">
+                    <div class="old-man-arm left"></div>
+                    <div class="old-man-arm right"></div>
+                    <div class="old-man-leg left"></div>
+                    <div class="old-man-leg right"></div>
+                </div>
+            </div>
+
+            <!-- Young soldier -->
+            <div class="soldier">
+                <div class="soldier-head">
+                    <div class="soldier-cap"></div>
+                </div>
+                <div class="soldier-body">
+                    <div class="soldier-arm left"></div>
+                    <div class="soldier-arm right"></div>
+                    <div class="soldier-leg left"></div>
+                    <div class="soldier-leg right"></div>
+                </div>
+            </div>
+
+            <!-- Heart particles -->
+            <div class="heart">❤️</div>
+            <div class="heart">❤️</div>
+            <div class="heart">❤️</div>
+
+            <!-- Text overlay -->
+            <div class="story-text">
+                <h2>همدلی و احترام</h2>
+                <p>کمک به دیگران، بزرگترین افتخار است</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-restart story after 20 seconds
+        setTimeout(() => {
+            window.location.reload();
+        }, 20000);
+    </script>
+</body>
+</html>
